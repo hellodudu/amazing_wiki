@@ -1,0 +1,24 @@
+MinDoc_New:
+  image: registry.cn-hangzhou.aliyuncs.com/mindoc/mindoc:v2.0-beta.2
+  privileged: false
+  restart: always
+  ports:
+    - 8181:8181
+  volumes:
+    - ./data/mindoc/database/:/mindoc/database
+    - ./data/mindoc/uploads/:/mindoc/uploads
+  environment:
+    - MINDOC_RUN_MODE=prod
+    - MINDOC_DB_ADAPTER=mysql
+    - MINDOC_DB_DATABASE=mindoc.db
+    - MINDOC_DB_HOST=host.docker.internal
+    - MINDOC_DB_PASSWORD= 
+    - MINDOC_CACHE=true
+    - MINDOC_CACHE_PROVIDER=file
+    - MINDOC_ENABLE_EXPORT=false
+    - MINDOC_BASE_URL=
+    - MINDOC_CDN_IMG_URL=
+    - MINDOC_CDN_CSS_URL=
+    - MINDOC_CDN_JS_URL=
+  # dns:
+  #   - 192.168.1.1
