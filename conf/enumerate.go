@@ -2,13 +2,15 @@
 package conf
 
 import (
+	"math/rand"
 	"strings"
 
-	"github.com/astaxie/beego"
-	"strconv"
-	"path/filepath"
-	"os"
 	"fmt"
+	"os"
+	"path/filepath"
+	"strconv"
+
+	"github.com/astaxie/beego"
 )
 
 // 登录用户的Session名
@@ -78,18 +80,23 @@ var (
 	AutoLoadDelay     = 0
 )
 
+var (
+	AvatarList = []string{"druid.png", "hunter.png", "mage.png", "paladin.png", "priest.png", "rogue.png", "shaman.png"}
+)
+
 // app_key
 func GetAppKey() string {
 	return beego.AppConfig.DefaultString("app_key", "mindoc")
 }
 
 func GetDatabasePrefix() string {
-	return beego.AppConfig.DefaultString("db_prefix", "md_")
+	return beego.AppConfig.DefaultString("db_prefix", "amazing_")
 }
 
-//获取默认头像
-func GetDefaultAvatar() string {
-	return URLForWithCdnImage(beego.AppConfig.DefaultString("avatar", "/static/images/headimgurl.jpg"))
+//获取随机头像
+func GetRandomAvatar() string {
+	n := rand.Intn(len(AvatarList))
+	return URLForWithCdnImage(beego.AppConfig.DefaultString("avatar", "/static/images/"+AvatarList[n]))
 }
 
 //获取阅读令牌长度.
@@ -158,7 +165,7 @@ func GetExportProcessNum() int {
 	if exportProcessNum <= 0 || exportProcessNum > 4 {
 		exportProcessNum = 1
 	}
-	return exportProcessNum;
+	return exportProcessNum
 }
 
 //导出项目队列的并发数量
@@ -168,7 +175,7 @@ func GetExportLimitNum() int {
 	if exportLimitNum < 0 {
 		exportLimitNum = 1
 	}
-	return exportLimitNum;
+	return exportLimitNum
 }
 
 //等待导出队列的长度
@@ -210,7 +217,7 @@ func IsAllowUploadFileExt(ext string) bool {
 //重写生成URL的方法，加上完整的域名
 func URLFor(endpoint string, values ...interface{}) string {
 	baseUrl := beego.AppConfig.DefaultString("baseurl", "")
-	pathUrl := beego.URLFor(endpoint, values ...)
+	pathUrl := beego.URLFor(endpoint, values...)
 
 	if baseUrl == "" {
 		baseUrl = BaseUrl
@@ -224,12 +231,12 @@ func URLFor(endpoint string, values ...interface{}) string {
 	if !strings.HasPrefix(pathUrl, "/") && !strings.HasSuffix(baseUrl, "/") {
 		return baseUrl + "/" + pathUrl
 	}
-	return baseUrl + beego.URLFor(endpoint, values ...)
+	return baseUrl + beego.URLFor(endpoint, values...)
 }
 
-func URLForNotHost(endpoint string,values ...interface{}) string  {
+func URLForNotHost(endpoint string, values ...interface{}) string {
 	baseUrl := beego.AppConfig.DefaultString("baseurl", "")
-	pathUrl := beego.URLFor(endpoint, values ...)
+	pathUrl := beego.URLFor(endpoint, values...)
 
 	if baseUrl == "" {
 		baseUrl = "/"
@@ -243,7 +250,7 @@ func URLForNotHost(endpoint string,values ...interface{}) string  {
 	if !strings.HasPrefix(pathUrl, "/") && !strings.HasSuffix(baseUrl, "/") {
 		return baseUrl + "/" + pathUrl
 	}
-	return baseUrl + beego.URLFor(endpoint, values ...)
+	return baseUrl + beego.URLFor(endpoint, values...)
 }
 
 func URLForWithCdnImage(p string) string {

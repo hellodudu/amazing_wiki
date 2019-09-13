@@ -3,10 +3,11 @@ package migrate
 import (
 	"errors"
 	"fmt"
-	"github.com/astaxie/beego/orm"
-	"github.com/lifei6671/mindoc/models"
 	"strings"
 	"time"
+
+	"github.com/astaxie/beego/orm"
+	"github.com/lifei6671/mindoc/models"
 )
 
 type MigrationVersion03 struct {
@@ -115,7 +116,7 @@ func (m *MigrationVersion03) RollbackMigration() error {
 		return err
 	}
 
-	_, err = o.Raw("DROP TABLE md_document_history").Exec()
+	_, err = o.Raw("DROP TABLE amazing_document_history").Exec()
 	if err != nil {
 		return err
 	}

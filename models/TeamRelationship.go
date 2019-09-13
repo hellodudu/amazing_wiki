@@ -1,11 +1,12 @@
 package models
 
 import (
-	"github.com/lifei6671/mindoc/conf"
-	"time"
-	"github.com/astaxie/beego/orm"
-	"github.com/astaxie/beego"
 	"errors"
+	"time"
+
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"github.com/lifei6671/mindoc/conf"
 )
 
 type TeamRelationship struct {
@@ -161,8 +162,8 @@ func (m *TeamRelationship) Include() (*TeamRelationship, error) {
 			}
 		}
 	}
-	if m.TeamId > 0{
-		team ,err := NewTeam().First(m.TeamId)
+	if m.TeamId > 0 {
+		team, err := NewTeam().First(m.TeamId)
 		if err == nil {
 			m.TeamName = team.TeamName
 			m.MemberCount = team.MemberCount
@@ -179,7 +180,7 @@ func (m *TeamRelationship) FindNotJoinBookByName(teamId int, bookName string, li
 	o := orm.NewOrm()
 
 	sql := `select book.book_id,book.book_name
-from  md_books as book
+from  amazing_books as book
 where book.book_id not in (select team.book_id from md_team_relationship as team where team_id=?)
 and book.book_name like ? order by book_id desc limit ?;`
 

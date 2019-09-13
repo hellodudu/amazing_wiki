@@ -198,7 +198,7 @@ func (c *AccountController) Register() {
 		member.Account = account
 		member.Password = password1
 		member.Role = conf.MemberGeneralRole
-		member.Avatar = conf.GetDefaultAvatar()
+		member.Avatar = conf.GetRandomAvatar()
 		member.CreateAt = 0
 		member.Email = email
 		member.Status = 0

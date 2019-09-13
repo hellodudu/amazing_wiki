@@ -1,7 +1,9 @@
 package commands
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"time"
 
@@ -149,5 +151,49 @@ func initialization() {
 			panic("初始化项目空间失败 -> " + err.Error())
 			os.Exit(1)
 		}
+	}
+
+	// 添加配置表成员
+	data, err := ioutil.ReadFile("./conf/member.json")
+	if err != nil {
+		beego.Error(err)
+		os.Exit(1)
+	}
+
+	var newMembers struct {
+		M []*models.Member `json:"member"`
+	}
+
+	err = json.Unmarshal(data, &newMembers)
+	if err != nil {
+		beego.Error("unmarshal member.json error", err)
+		os.Exit(1)
+	}
+
+	for _, v := range newMembers.M {
+		member, err := models.NewMember().FindByFieldFirst("account", v.Account)
+		if err == orm.ErrNoRows {
+			member.Account = v.Account
+			member.Avatar = conf.GetRandomAvatar()
+
+			if len(v.Password) == 0 {
+				member.Password = "123456"
+			}
+
+			member.AuthMethod = "local"
+			member.Role = 1
+
+			if len(v.Email) == 0 {
+				member.Email = v.Account + "@amazing.com"
+			}
+
+			if err := member.Add(); err != nil {
+				panic("Member.Add => " + err.Error())
+				os.Exit(0)
+			}
+
+			beego.Info("create new member success", member)
+		}
+
 	}
 }

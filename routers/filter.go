@@ -2,12 +2,13 @@ package routers
 
 import (
 	"encoding/json"
+	"net/url"
+	"regexp"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"github.com/lifei6671/mindoc/conf"
 	"github.com/lifei6671/mindoc/models"
-	"net/url"
-	"regexp"
 )
 
 func init() {
@@ -39,8 +40,8 @@ func init() {
 	beego.InsertFilter("/manage/*", beego.BeforeRouter, FilterUser)
 
 	var FinishRouter = func(ctx *context.Context) {
-		ctx.ResponseWriter.Header().Add("MinDoc-Version", conf.VERSION)
-		ctx.ResponseWriter.Header().Add("MinDoc-Site", "https://www.iminho.me")
+		ctx.ResponseWriter.Header().Add("Amazing Wiki-Version", conf.VERSION)
+		ctx.ResponseWriter.Header().Add("Amazing Wiki-Site", "https://github.com/hellodudu/amazing_wiki")
 		ctx.ResponseWriter.Header().Add("X-XSS-Protection", "1; mode=block")
 	}
 

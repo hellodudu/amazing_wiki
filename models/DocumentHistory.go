@@ -3,9 +3,9 @@ package models
 import (
 	"time"
 
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/lifei6671/mindoc/conf"
-	"github.com/astaxie/beego"
 )
 
 type DocumentHistory struct {
@@ -21,7 +21,7 @@ type DocumentHistory struct {
 	ModifyTime   time.Time `orm:"column(modify_time);type(datetime);auto_now" json:"modify_time"`
 	ModifyAt     int       `orm:"column(modify_at);type(int)" json:"-"`
 	Version      int64     `orm:"type(bigint);column(version)" json:"version"`
-	IsOpen	   int 			 `orm:"column(is_open);type(int);default(0)" json:"is_open"`
+	IsOpen       int       `orm:"column(is_open);type(int);default(0)" json:"is_open"`
 }
 
 type DocumentHistorySimpleResult struct {
@@ -63,7 +63,7 @@ func (m *DocumentHistory) Find(id int) (*DocumentHistory, error) {
 func (m *DocumentHistory) Clear(docId int) error {
 	o := orm.NewOrm()
 
-	_, err := o.Raw("DELETE md_document_history WHERE document_id = ?", docId).Exec()
+	_, err := o.Raw("DELETE amazing_document_history WHERE document_id = ?", docId).Exec()
 
 	return err
 }
@@ -127,21 +127,21 @@ func (m *DocumentHistory) InsertOrUpdate() (history *DocumentHistory, err error)
 	} else {
 		_, err = o.Insert(m)
 		if err == nil {
-			if doc,e := NewDocument().Find(m.DocumentId);e == nil {
-				if book,e := NewBook().Find(doc.BookId);e == nil && book.HistoryCount > 0 {
+			if doc, e := NewDocument().Find(m.DocumentId); e == nil {
+				if book, e := NewBook().Find(doc.BookId); e == nil && book.HistoryCount > 0 {
 					//如果已存在的历史记录大于指定的记录，则清除旧记录
-					if c,e := o.QueryTable(m.TableNameWithPrefix()).Filter("document_id",doc.DocumentId).Count(); e == nil && c > int64(book.HistoryCount) {
+					if c, e := o.QueryTable(m.TableNameWithPrefix()).Filter("document_id", doc.DocumentId).Count(); e == nil && c > int64(book.HistoryCount) {
 
 						count := c - int64(book.HistoryCount)
-						beego.Info("需要删除的历史文档数量：" ,count)
+						beego.Info("需要删除的历史文档数量：", count)
 						var lists []DocumentHistory
 
-						if _,e := o.QueryTable(m.TableNameWithPrefix()).Filter("document_id",doc.DocumentId).OrderBy("history_id").Limit(count).All(&lists,"history_id"); e == nil {
-							for _,d := range lists  {
+						if _, e := o.QueryTable(m.TableNameWithPrefix()).Filter("document_id", doc.DocumentId).OrderBy("history_id").Limit(count).All(&lists, "history_id"); e == nil {
+							for _, d := range lists {
 								o.Delete(&d)
 							}
 						}
-					}else{
+					} else {
 						beego.Info(book.HistoryCount)
 					}
 				}
@@ -162,9 +162,9 @@ func (m *DocumentHistory) FindToPager(docId, pageIndex, pageSize int) (docs []*D
 	totalCount = 0
 
 	sql := `SELECT history.*,m1.account,m2.account as modify_name
-FROM md_document_history AS history
-LEFT JOIN md_members AS m1 ON history.member_id = m1.member_id
-LEFT JOIN md_members AS m2 ON history.modify_at = m2.member_id
+FROM amazing_document_history AS history
+LEFT JOIN amazing_members AS m1 ON history.member_id = m1.member_id
+LEFT JOIN amazing_members AS m2 ON history.modify_at = m2.member_id
 WHERE history.document_id = ? ORDER BY history.history_id DESC LIMIT ?,?;`
 
 	_, err = o.Raw(sql, docId, offset, pageSize).QueryRows(&docs)

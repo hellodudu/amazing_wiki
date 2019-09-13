@@ -17,12 +17,13 @@ import (
 
 	"gopkg.in/ldap.v2"
 
+	"math"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
 	"github.com/lifei6671/mindoc/conf"
 	"github.com/lifei6671/mindoc/utils"
-	"math"
 )
 
 type Member struct {
@@ -173,7 +174,7 @@ func (m *Member) httpLogin(account, password string) (*Member, error) {
 		"time":     []string{strconv.FormatInt(time.Now().Unix(), 10)},
 	}
 	h := md5.New()
-	h.Write([]byte(val.Encode() + beego.AppConfig.DefaultString("http_login_secret","")))
+	h.Write([]byte(val.Encode() + beego.AppConfig.DefaultString("http_login_secret", "")))
 
 	val.Add("sn", hex.EncodeToString(h.Sum(nil)))
 
@@ -244,9 +245,9 @@ func (m *Member) Add() error {
 	if ok, err := regexp.MatchString(conf.RegexpAccount, m.Account); m.Account == "" || !ok || err != nil {
 		return errors.New("账号只能由英文字母数字组成，且在3-50个字符")
 	}
-	if m.Email == "" {
-		return errors.New("邮箱不能为空")
-	}
+	// if m.Email == "" {
+	// 	return errors.New("邮箱不能为空")
+	// }
 	if ok, err := regexp.MatchString(conf.RegexpEmail, m.Email); !ok || err != nil || m.Email == "" {
 		return errors.New("邮箱格式不正确")
 	}
@@ -452,62 +453,62 @@ func (m *Member) Delete(oldId int, newId int) error {
 		return err
 	}
 
-	_, err = o.Raw("DELETE FROM md_members WHERE member_id = ?", oldId).Exec()
+	_, err = o.Raw("DELETE FROM amazing_members WHERE member_id = ?", oldId).Exec()
 	if err != nil {
 		o.Rollback()
 		return err
 	}
-	_, err = o.Raw("UPDATE md_attachment SET `create_at` = ? WHERE `create_at` = ?", newId, oldId).Exec()
+	_, err = o.Raw("UPDATE amazing_attachment SET `create_at` = ? WHERE `create_at` = ?", newId, oldId).Exec()
 
 	if err != nil {
 		o.Rollback()
 		return err
 	}
 
-	_, err = o.Raw("UPDATE md_books SET member_id = ? WHERE member_id = ?", newId, oldId).Exec()
+	_, err = o.Raw("UPDATE amazing_books SET member_id = ? WHERE member_id = ?", newId, oldId).Exec()
 	if err != nil {
 		o.Rollback()
 		return err
 	}
-	_, err = o.Raw("UPDATE md_document_history SET member_id=? WHERE member_id = ?", newId, oldId).Exec()
+	_, err = o.Raw("UPDATE amazing_document_history SET member_id=? WHERE member_id = ?", newId, oldId).Exec()
 	if err != nil {
 		o.Rollback()
 		return err
 	}
-	_, err = o.Raw("UPDATE md_document_history SET modify_at=? WHERE modify_at = ?", newId, oldId).Exec()
+	_, err = o.Raw("UPDATE amazing_document_history SET modify_at=? WHERE modify_at = ?", newId, oldId).Exec()
 	if err != nil {
 		o.Rollback()
 		return err
 	}
-	_, err = o.Raw("UPDATE md_documents SET member_id = ? WHERE member_id = ?;", newId, oldId).Exec()
+	_, err = o.Raw("UPDATE amazing_documents SET member_id = ? WHERE member_id = ?;", newId, oldId).Exec()
 	if err != nil {
 		o.Rollback()
 		return err
 	}
-	_, err = o.Raw("UPDATE md_documents SET modify_at = ? WHERE modify_at = ?", newId, oldId).Exec()
+	_, err = o.Raw("UPDATE amazing_documents SET modify_at = ? WHERE modify_at = ?", newId, oldId).Exec()
 	if err != nil {
 		o.Rollback()
 		return err
 	}
-	_, err = o.Raw("UPDATE md_blogs SET member_id = ? WHERE member_id = ?;", newId, oldId).Exec()
+	_, err = o.Raw("UPDATE amazing_blogs SET member_id = ? WHERE member_id = ?;", newId, oldId).Exec()
 
 	if err != nil {
 		o.Rollback()
 		return err
 	}
-	_, err = o.Raw("UPDATE md_blogs SET modify_at = ? WHERE modify_at = ?", newId, oldId).Exec()
+	_, err = o.Raw("UPDATE amazing_blogs SET modify_at = ? WHERE modify_at = ?", newId, oldId).Exec()
 	if err != nil {
 		o.Rollback()
 		return err
 	}
 
-	_, err = o.Raw("UPDATE md_templates SET modify_at = ? WHERE modify_at = ?", newId, oldId).Exec()
+	_, err = o.Raw("UPDATE amazing_templates SET modify_at = ? WHERE modify_at = ?", newId, oldId).Exec()
 	if err != nil {
 		o.Rollback()
 		return err
 	}
 
-	_, err = o.Raw("UPDATE md_templates SET member_id = ? WHERE member_id = ?", newId, oldId).Exec()
+	_, err = o.Raw("UPDATE amazing_templates SET member_id = ? WHERE member_id = ?", newId, oldId).Exec()
 	if err != nil {
 		o.Rollback()
 		return err
@@ -519,7 +520,7 @@ func (m *Member) Delete(oldId int, newId int) error {
 		return err
 	}
 
-	//_,err = o.Raw("UPDATE md_relationship SET member_id = ? WHERE member_id = ?",newId,oldId).Exec()
+	//_,err = o.Raw("UPDATE amazing_relationship SET member_id = ? WHERE member_id = ?",newId,oldId).Exec()
 	//if err != nil {
 	//
 	//	if err != nil {
