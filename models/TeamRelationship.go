@@ -181,7 +181,7 @@ func (m *TeamRelationship) FindNotJoinBookByName(teamId int, bookName string, li
 
 	sql := `select book.book_id,book.book_name
 from  amazing_books as book
-where book.book_id not in (select team.book_id from md_team_relationship as team where team_id=?)
+where book.book_id not in (select team.book_id from amazing_team_relationship as team where team_id=?)
 and book.book_name like ? order by book_id desc limit ?;`
 
 	books := make([]*Book, 0)
@@ -215,8 +215,8 @@ func (m *TeamRelationship) FindNotJoinBookByBookIdentify(bookId int, teamName st
 
 	o := orm.NewOrm()
 	sql := `select *
-from md_teams as team
-where team.team_id not in (select rel.team_id from md_team_relationship as rel where rel.book_id = ?) 
+from amazing_teams as team
+where team.team_id not in (select rel.team_id from amazing_team_relationship as rel where rel.book_id = ?) 
 and team.team_name like ? 
 order by team.team_id desc limit ?;`
 	teams := make([]*Team, 0)

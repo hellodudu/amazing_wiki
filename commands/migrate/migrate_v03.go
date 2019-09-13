@@ -53,7 +53,7 @@ func (m *MigrationVersion03) ValidForUpdateTableSchema() error {
 		return err
 	}
 
-	//_,err = o.Raw("ALTER TABLE md_members ADD auth_method VARCHAR(50) DEFAULT 'local' NULL").Exec()
+	//_,err = o.Raw("ALTER TABLE amazing_members ADD auth_method VARCHAR(50) DEFAULT 'local' NULL").Exec()
 
 	return err
 }
@@ -71,11 +71,11 @@ func (m *MigrationVersion03) MigrationNewTableData() error {
 	}
 	o := orm.NewOrm()
 
-	_, err := o.Raw("UPDATE md_members SET auth_method = 'local'").Exec()
+	_, err := o.Raw("UPDATE amazing_members SET auth_method = 'local'").Exec()
 	if err != nil {
 		return err
 	}
-	_, err = o.Raw("INSERT INTO md_options (option_title, option_name, option_value) SELECT '是否启用文档历史','ENABLE_DOCUMENT_HISTORY','true' WHERE NOT exists(SELECT * FROM md_options WHERE option_name = 'ENABLE_DOCUMENT_HISTORY');").Exec()
+	_, err = o.Raw("INSERT INTO amazing_options (option_title, option_name, option_value) SELECT '是否启用文档历史','ENABLE_DOCUMENT_HISTORY','true' WHERE NOT exists(SELECT * FROM amazing_options WHERE option_name = 'ENABLE_DOCUMENT_HISTORY');").Exec()
 	if err != nil {
 		return err
 	}
@@ -111,7 +111,7 @@ func (m *MigrationVersion03) RollbackMigration() error {
 		return errors.New("The current version failed to verify.")
 	}
 	o := orm.NewOrm()
-	_, err := o.Raw("ALTER TABLE md_members DROP COLUMN auth_method").Exec()
+	_, err := o.Raw("ALTER TABLE amazing_members DROP COLUMN auth_method").Exec()
 	if err != nil {
 		return err
 	}
@@ -120,7 +120,7 @@ func (m *MigrationVersion03) RollbackMigration() error {
 	if err != nil {
 		return err
 	}
-	_, err = o.Raw("DELETE md_options WHERE option_name = 'ENABLE_DOCUMENT_HISTORY'").Exec()
+	_, err = o.Raw("DELETE amazing_options WHERE option_name = 'ENABLE_DOCUMENT_HISTORY'").Exec()
 
 	if err != nil {
 		return err

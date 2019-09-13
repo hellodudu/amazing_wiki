@@ -378,7 +378,7 @@ ORDER BY book.order_index, book.book_id DESC limit ?,?`
 		logs.Error("分页查询项目列表 => ", err)
 		return
 	}
-	sql := "SELECT m.account,doc.modify_time FROM amazing_documents AS doc LEFT JOIN md_members AS m ON doc.modify_at=m.member_id WHERE book_id = ? LIMIT 1 ORDER BY doc.modify_time DESC"
+	sql := "SELECT m.account,doc.modify_time FROM amazing_documents AS doc LEFT JOIN amazing_members AS m ON doc.modify_at=m.member_id WHERE book_id = ? LIMIT 1 ORDER BY doc.modify_time DESC"
 
 	if len(books) > 0 {
 		for index, book := range books {
@@ -500,7 +500,7 @@ WHERE book.privately_owned = 0 or rel.role_id >=0 or team.role_id >=0`
   left join (select book_id,min(role_id) AS role_id
              from (select book_id,role_id
                    from amazing_team_relationship as mtr
-                     left join md_team_member as mtm on mtm.team_id=mtr.team_id and mtm.member_id=? order by role_id desc )
+                     left join amazing_team_member as mtm on mtm.team_id=mtr.team_id and mtm.member_id=? order by role_id desc )
 as t group by book_id) as team on team.book_id=book.book_id
   LEFT JOIN amazing_relationship AS rel1 ON rel1.book_id = book.book_id AND rel1.role_id = 0
   LEFT JOIN amazing_members AS member ON rel1.member_id = member.member_id
@@ -945,8 +945,8 @@ func (book *Book) FindForRoleId(bookId, memberId int) (conf.BookRole, error) {
 		return relationship.RoleId, nil
 	}
 	sql := `select role_id
-from md_team_relationship as mtr
-left join md_team_member as mtm using (team_id)
+from amazing_team_relationship as mtr
+left join amazing_team_member as mtm using (team_id)
 where mtr.book_id = ? and mtm.member_id = ? order by mtm.role_id asc limit 1;`
 
 	var roleId int

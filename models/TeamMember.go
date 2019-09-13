@@ -1,10 +1,11 @@
 package models
 
 import (
-	"github.com/lifei6671/mindoc/conf"
 	"errors"
-	"github.com/astaxie/beego/orm"
+
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"github.com/lifei6671/mindoc/conf"
 )
 
 type TeamMember struct {
@@ -205,8 +206,8 @@ func (m *TeamMember) FindNotJoinMemberByAccount(teamId int, account string, limi
 	o := orm.NewOrm()
 
 	sql := `select member.member_id,member.account,team.team_member_id
-from md_members as member 
-  left join md_team_member as team on team.team_id = ? and member.member_id = team.member_id
+from amazing_members as member 
+  left join amazing_team_member as team on team.team_id = ? and member.member_id = team.member_id
   where member.account like ? AND team_member_id IS NULL
   order by member.member_id desc 
 limit ?;`
@@ -234,23 +235,23 @@ limit ?;`
 	return &result, err
 }
 
-func (m *TeamMember) FindByBookIdAndMemberId(bookId,memberId int) (*TeamMember, error) {
+func (m *TeamMember) FindByBookIdAndMemberId(bookId, memberId int) (*TeamMember, error) {
 	if bookId <= 0 || memberId <= 0 {
-		return nil,ErrInvalidParameter
+		return nil, ErrInvalidParameter
 	}
 	//一个用户可能在多个团队中，且一个项目可能有多个团队参与。因此需要查询用户最大权限。
 	sql := `select *
-from md_team_member as team
-where team.team_id in (select rel.team_id from md_team_relationship as rel where rel.book_id = ?) 
+from amazing_team_member as team
+where team.team_id in (select rel.team_id from amazing_team_relationship as rel where rel.book_id = ?) 
 and team.member_id = ? order by team.role_id asc limit 1;`
 
 	o := orm.NewOrm()
 
-	err := o.Raw(sql,bookId,memberId).QueryRow(m)
+	err := o.Raw(sql, bookId, memberId).QueryRow(m)
 
 	if err != nil {
-		beego.Error("查询用户项目所在团队失败 ->bookId=",bookId," memberId=", memberId, err)
-		return nil,err
+		beego.Error("查询用户项目所在团队失败 ->bookId=", bookId, " memberId=", memberId, err)
+		return nil, err
 	}
-	return m,nil
+	return m, nil
 }

@@ -74,8 +74,8 @@ SELECT
   member.account AS author,
   'book'     AS search_type
 FROM  amazing_books AS book
-       LEFT JOIN md_relationship AS rel ON book.book_id = rel.book_id AND rel.role_id = 0
-       LEFT JOIN md_members AS member ON rel.member_id = member.member_id
+       LEFT JOIN amazing_relationship AS rel ON book.book_id = rel.book_id AND rel.role_id = 0
+       LEFT JOIN amazing_members AS member ON rel.member_id = member.member_id
 WHERE book.privately_owned = 0 AND (book.book_name LIKE ? OR book.description LIKE ?)
 
        UNION ALL
@@ -92,7 +92,7 @@ WHERE book.privately_owned = 0 AND (book.book_name LIKE ? OR book.description LI
          member.account,
          'blog' AS search_type
        FROM amazing_blogs AS blog
-         LEFT JOIN md_members AS member ON blog.member_id = member.member_id
+         LEFT JOIN amazing_members AS member ON blog.member_id = member.member_id
        WHERE blog.blog_status = 'public' AND (blog.blog_release LIKE ? OR blog.blog_title LIKE ?)
      ) AS union_table
 ORDER BY create_time DESC
@@ -219,7 +219,7 @@ FROM (
          member.account,
          'blog' AS search_type
        FROM amazing_blogs AS blog
-         LEFT JOIN md_members AS member ON blog.member_id = member.member_id
+         LEFT JOIN amazing_members AS member ON blog.member_id = member.member_id
        WHERE (blog.blog_status = 'public' OR blog.member_id = ?) AND blog.blog_type = 0 AND
              (blog.blog_release LIKE ? OR blog.blog_title LIKE ?)
      ) AS union_table
