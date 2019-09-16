@@ -16,6 +16,7 @@ require (
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 	github.com/shiena/ansicolor v0.0.0-20151119151921-a422bbe96644 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
+	golang.org/x/tools/gopls v0.1.4 // indirect
 	gopkg.in/ldap.v2 v2.5.1
 	gopkg.in/russross/blackfriday.v2 v2.0.1
 )

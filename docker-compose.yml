@@ -1,24 +1,75 @@
-MinDoc_New:
-  image: registry.cn-hangzhou.aliyuncs.com/mindoc/mindoc:v2.0-beta.2
-  privileged: false
-  restart: always
-  ports:
+version: "3"
+
+networks:
+    loki:
+
+services:
+  amazing_wiki:
+    build: ./
+    image: amazing_wiki
+    container_name: amazing_wiki
+
+    privileged: false
+    restart: always
+    ports:
     - 8181:8181
-  volumes:
-    - ./data/mindoc/database/:/mindoc/database
-    - ./data/mindoc/uploads/:/mindoc/uploads
-  environment:
-    - MINDOC_RUN_MODE=prod
-    - MINDOC_DB_ADAPTER=mysql
-    - MINDOC_DB_DATABASE=mindoc.db
-    - MINDOC_DB_HOST=host.docker.internal
-    - MINDOC_DB_PASSWORD= 
-    - MINDOC_CACHE=true
-    - MINDOC_CACHE_PROVIDER=file
-    - MINDOC_ENABLE_EXPORT=false
-    - MINDOC_BASE_URL=
-    - MINDOC_CDN_IMG_URL=
-    - MINDOC_CDN_CSS_URL=
-    - MINDOC_CDN_JS_URL=
-  # dns:
-  #   - 192.168.1.1
+    volumes:
+    - ./conf/:/conf
+    - ./database/:/database
+    - ./uploads/:/uploads
+    environment:
+    - AMAZING_RUN_MODE=prod
+    - AMAZING_DB_ADAPTER=mysql
+    - AMAZING_DB_DATABASE=amazing_wiki
+    - AMAZING_DB_HOST=host.docker.internal
+    - AMAZING_DB_PASSWORD= 
+    - AMAZING_CACHE=true
+    - AMAZING_CACHE_PROVIDER=file
+    - AMAZING_ENABLE_EXPORT=false
+    - AMAZING_BASE_URL=
+    - AMAZING_CDN_IMG_URL=
+    - AMAZING_CDN_CSS_URL=
+    - AMAZING_CDN_JS_URL=
+  networks:
+      - loki
+    logging:
+      driver: loki
+      options:
+        loki-url: http://host.docker.internal:3100/api/prom/push
+        loki-retries: "5"
+        loki-batch-size: "400"
+
+  depends_on:
+      - "loki"
+      - "grafana"
+
+  loki:
+    image: grafana/loki
+    container_name: loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./conf/:/etc/loki
+      - ./data/loki/:/tmp/loki
+    command: -config.file=/etc/loki/loki-local-config.yaml
+    networks:
+      - loki
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+        - "3000:3000"
+    user: "472"
+    environment:
+      GF_EXPLORE_ENABLED: "true"
+    networks:
+      - loki
+    logging:
+      driver: loki
+      options:
+        loki-url: http://host.docker.internal:3100/api/prom/push
+        loki-retries: "5"
+        loki-batch-size: "400"
+
+

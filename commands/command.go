@@ -318,7 +318,7 @@ func ResolveCommand(args []string) {
 	}
 
 	conf.AutoLoadDelay = beego.AppConfig.DefaultInt("config_auto_delay", 0)
-	uploads := conf.WorkingDir("uploads")
+	uploads := conf.WorkingDir("data/uploads")
 
 	_ = os.MkdirAll(uploads, 0666)
 

@@ -508,7 +508,7 @@ func (m *BookResult) Converter(sessionId string) (ConvertBookResult, error) {
 
 //导出Markdown原始文件
 func (m *BookResult) ExportMarkdown(sessionId string) (string, error) {
-	outputPath := filepath.Join(conf.WorkingDirectory, "uploads", "books", strconv.Itoa(m.BookId), "book.zip")
+	outputPath := filepath.Join(conf.WorkingDirectory, "data/uploads", "books", strconv.Itoa(m.BookId), "book.zip")
 
 	os.MkdirAll(filepath.Dir(outputPath), 0644)
 
@@ -592,7 +592,7 @@ func exportMarkdown(p string, parentId int, bookId int, baseDir string, bookUrl 
 				if strings.HasPrefix(imageUrl, "http://") || strings.HasPrefix(imageUrl, "https://") {
 					imageExt := cryptil.Md5Crypt(imageUrl) + filepath.Ext(imageUrl)
 
-					dstFile := filepath.Join(baseDir, "uploads", time.Now().Format("200601"), imageExt)
+					dstFile := filepath.Join(baseDir, "data/uploads", time.Now().Format("200601"), imageExt)
 
 					if err := requests.DownloadAndSaveFile(imageUrl, dstFile); err == nil {
 						imageUrl = strings.TrimPrefix(strings.Replace(dstFile, "\\", "/", -1), strings.Replace(baseDir, "\\", "/", -1))

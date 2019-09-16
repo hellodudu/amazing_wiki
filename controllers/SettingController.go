@@ -34,7 +34,7 @@ func (c *SettingController) Index() {
 		member.Email = email
 		member.Phone = phone
 		member.Description = description
-		member.RealName = strings.TrimSpace(c.GetString("real_name",""))
+		member.RealName = strings.TrimSpace(c.GetString("real_name", ""))
 		if err := member.Update(); err != nil {
 			c.JsonResult(602, err.Error())
 		}
@@ -115,7 +115,7 @@ func (c *SettingController) Upload() {
 
 	fileName := "avatar_" + strconv.FormatInt(time.Now().UnixNano(), 16)
 
-	filePath := filepath.Join(conf.WorkingDirectory, "uploads", time.Now().Format("200601"), fileName+ext)
+	filePath := filepath.Join(conf.WorkingDirectory, "data/uploads", time.Now().Format("200601"), fileName+ext)
 
 	path := filepath.Dir(filePath)
 
@@ -137,7 +137,7 @@ func (c *SettingController) Upload() {
 	}
 	os.Remove(filePath)
 
-	filePath = filepath.Join(conf.WorkingDirectory, "uploads", time.Now().Format("200601"), fileName+"_small"+ext)
+	filePath = filepath.Join(conf.WorkingDirectory, "data/uploads", time.Now().Format("200601"), fileName+"_small"+ext)
 
 	err = graphics.ImageResizeSaveFile(subImg, 120, 120, filePath)
 	//err = graphics.SaveImage(filePath,subImg)

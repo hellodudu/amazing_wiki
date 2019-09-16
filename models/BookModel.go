@@ -467,7 +467,7 @@ func (book *Book) ThoroughDeleteBook(id int) error {
 		beego.Error("删除项目缓存失败 ->", err)
 	}
 	//删除附件和图片
-	if err := os.RemoveAll(filepath.Join(conf.WorkingDirectory, "uploads", book.Identify)); err != nil {
+	if err := os.RemoveAll(filepath.Join(conf.WorkingDirectory, "data/uploads", book.Identify)); err != nil {
 		beego.Error("删除项目附件和图片失败 ->", err)
 	}
 
@@ -740,7 +740,7 @@ func (book *Book) ImportBook(zipPath string) error {
 							imageUrl = filepath.Join(filepath.Dir(path), imageUrl)
 						}
 						imageUrl = strings.Replace(imageUrl, "\\", "/", -1)
-						dstFile := filepath.Join(conf.WorkingDirectory, "uploads", time.Now().Format("200601"), strings.TrimPrefix(imageUrl, tempPath))
+						dstFile := filepath.Join(conf.WorkingDirectory, "data/uploads", time.Now().Format("200601"), strings.TrimPrefix(imageUrl, tempPath))
 
 						if filetil.FileExists(imageUrl) {
 							filetil.CopyFile(imageUrl, dstFile)
@@ -755,7 +755,7 @@ func (book *Book) ImportBook(zipPath string) error {
 					} else {
 						imageExt := cryptil.Md5Crypt(imageUrl) + filepath.Ext(imageUrl)
 
-						dstFile := filepath.Join(conf.WorkingDirectory, "uploads", time.Now().Format("200601"), imageExt)
+						dstFile := filepath.Join(conf.WorkingDirectory, "data/uploads", time.Now().Format("200601"), imageExt)
 
 						if err := requests.DownloadAndSaveFile(imageUrl, dstFile); err == nil {
 							imageUrl = strings.TrimPrefix(strings.Replace(dstFile, "\\", "/", -1), strings.Replace(conf.WorkingDirectory, "\\", "/", -1))
@@ -809,7 +809,7 @@ func (book *Book) ImportBook(zipPath string) error {
 								link = strings.TrimSuffix(link, originalLink+")") + conf.URLFor("DocumentController.Read", ":key", book.Identify, ":id", docIdentify) + ")"
 
 							} else {
-								dstPath := filepath.Join(conf.WorkingDirectory, "uploads", time.Now().Format("200601"), originalLink)
+								dstPath := filepath.Join(conf.WorkingDirectory, "data/uploads", time.Now().Format("200601"), originalLink)
 
 								filetil.CopyFile(linkPath, dstPath)
 

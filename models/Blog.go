@@ -3,14 +3,15 @@ package models
 import (
 	"bytes"
 	"fmt"
+	"strings"
+	"time"
+
 	"github.com/PuerkitoBio/goquery"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/lifei6671/mindoc/cache"
 	"github.com/lifei6671/mindoc/conf"
 	"github.com/lifei6671/mindoc/utils"
-	"strings"
-	"time"
 )
 
 //博文表
@@ -102,9 +103,9 @@ func (b *Blog) Find(blogId int) (*Blog, error) {
 
 //从缓存中读取文章
 func (b *Blog) FindFromCache(blogId int) (blog *Blog, err error) {
-	key := fmt.Sprintf("blog-id-%d", blogId);
+	key := fmt.Sprintf("blog-id-%d", blogId)
 	var temp Blog
-	err = cache.Get(key, &temp);
+	err = cache.Get(key, &temp)
 	if err == nil {
 		b = &temp
 		b.Link()
@@ -173,13 +174,13 @@ func (b *Blog) Link() (*Blog, error) {
 			//处理链接文档存在源文档修改时间的问题
 			if content, err := goquery.NewDocumentFromReader(bytes.NewBufferString(b.BlogRelease)); err == nil {
 				content.Find(".wiki-bottom").Remove()
-				if html,err := content.Html();err == nil {
+				if html, err := content.Html(); err == nil {
 					b.BlogRelease = html
 				} else {
-					beego.Error("处理文章失败 ->",err)
+					beego.Error("处理文章失败 ->", err)
 				}
-			}else {
-				beego.Error("处理文章失败 ->",err)
+			} else {
+				beego.Error("处理文章失败 ->", err)
 			}
 		}
 	}
@@ -223,7 +224,7 @@ func (b *Blog) Save(cols ...string) error {
 	if b.OrderIndex <= 0 {
 		blog := NewBlog()
 		if err := o.QueryTable(blog.TableNameWithPrefix()).OrderBy("-blog_id").Limit(1).One(blog, "blog_id"); err == nil {
-			b.OrderIndex = blog.BlogId + 1;
+			b.OrderIndex = blog.BlogId + 1
 		} else {
 			c, _ := o.QueryTable(b.TableNameWithPrefix()).Count()
 			b.OrderIndex = int(c) + 1
