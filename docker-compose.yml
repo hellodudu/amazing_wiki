@@ -14,9 +14,10 @@ services:
     ports:
     - 8181:8181
     volumes:
-    - ./conf/:/conf
-    - ./database/:/database
-    - ./uploads/:/uploads
+    - ./conf/:/app/conf
+    - ./data/:/app/data
+    - ./static/:/app/static
+    - ./views/:/app/views
     environment:
     - AMAZING_RUN_MODE=prod
     - AMAZING_DB_ADAPTER=mysql

@@ -27,8 +27,8 @@ run:
 		-e AMAZING_CACHE=true \
 		-e AMAZING_CACHE_PROVIDER=file \
 		-e AMAZING_ENABLE_EXPORT=false \
-		-v $(shell pwd)./conf/:/app/conf \
-		-v $(shell pwd)./data/:/app/data \
-		-v $(shell pwd)./uploads/:/app/uploads \
-		-v $(shell pwd)./database/:/app/database \
+		-v $(shell pwd)/conf/:/app/conf \
+		-v $(shell pwd)/data/:/app/data \
+		-v $(shell pwd)/static/:/app/static \
+		-v $(shell pwd)/views/:/app/views \
 		amazing_wiki
