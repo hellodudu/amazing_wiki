@@ -197,7 +197,7 @@ func (pdfg *PDFGenerator) Bytes() []byte {
 
 // WriteFile writes the contents of the output buffer to a file
 func (pdfg *PDFGenerator) WriteFile(filename string) error {
-	return ioutil.WriteFile(filename, pdfg.Bytes(), 0666)
+	return ioutil.WriteFile(filename, pdfg.Bytes(), 0766)
 }
 
 //findPath finds the path to wkhtmltopdf by

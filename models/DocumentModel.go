@@ -342,7 +342,7 @@ func (item *Document) Processor() *Document {
 					}
 
 					//设置图片为CDN地址
-					if cdnimg != "" && strings.HasPrefix(src, "/data/uploads/") {
+					if cdnimg != "" && strings.HasPrefix(src, "/uploads/") {
 						selection.SetAttr("src", utils.JoinURI(cdnimg, src))
 					}
 

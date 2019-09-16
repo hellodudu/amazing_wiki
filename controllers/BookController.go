@@ -339,7 +339,7 @@ func (c *BookController) UploadCover() {
 	fileName := "cover_" + strconv.FormatInt(time.Now().UnixNano(), 16)
 
 	//附件路径按照项目组织
-	filePath := filepath.Join("uploads", book.Identify, "images", fileName+ext)
+	filePath := filepath.Join("data/uploads", book.Identify, "images", fileName+ext)
 
 	path := filepath.Dir(filePath)
 
@@ -363,7 +363,7 @@ func (c *BookController) UploadCover() {
 		c.JsonResult(500, "图片剪切")
 	}
 
-	filePath = filepath.Join(conf.WorkingDirectory, "uploads", time.Now().Format("200601"), fileName+"_small"+ext)
+	filePath = filepath.Join(conf.WorkingDirectory, "data/uploads", time.Now().Format("200601"), fileName+"_small"+ext)
 
 	//生成缩略图并保存到磁盘
 	err = graphics.ImageResizeSaveFile(subImg, 350, 460, filePath)
@@ -487,7 +487,7 @@ func (c *BookController) Create() {
 
 				fileName := "cover_" + strconv.FormatInt(time.Now().UnixNano(), 16)
 
-				filePath := filepath.Join("uploads", time.Now().Format("200601"), fileName+ext)
+				filePath := filepath.Join("data/uploads", time.Now().Format("200601"), fileName+ext)
 
 				path := filepath.Dir(filePath)
 

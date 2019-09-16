@@ -320,10 +320,10 @@ func ResolveCommand(args []string) {
 	conf.AutoLoadDelay = beego.AppConfig.DefaultInt("config_auto_delay", 0)
 	uploads := conf.WorkingDir("data/uploads")
 
-	_ = os.MkdirAll(uploads, 0666)
+	_ = os.MkdirAll(uploads, 0766)
 
 	beego.BConfig.WebConfig.StaticDir["/static"] = filepath.Join(conf.WorkingDirectory, "static")
-	beego.BConfig.WebConfig.StaticDir["/uploads"] = uploads
+	beego.BConfig.WebConfig.StaticDir["/data/uploads"] = uploads
 	beego.BConfig.WebConfig.ViewsPath = conf.WorkingDir("views")
 
 	fonts := conf.WorkingDir("static", "fonts")
