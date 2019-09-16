@@ -125,11 +125,11 @@ func RegisterLogger(log string) {
 		logs.Async(1e3)
 	}
 	if log == "" {
-		logPath, err := filepath.Abs(beego.AppConfig.DefaultString("log_path", conf.WorkingDir("runtime", "logs")))
+		logPath, err := filepath.Abs(beego.AppConfig.DefaultString("log_path", conf.WorkingDir("data", "logs")))
 		if err == nil {
 			log = logPath
 		} else {
-			log = conf.WorkingDir("runtime", "logs")
+			log = conf.WorkingDir("data", "logs")
 		}
 	}
 
@@ -309,11 +309,11 @@ func ResolveCommand(args []string) {
 		log.Fatal("An error occurred:", err)
 	}
 	if conf.LogFile == "" {
-		logPath, err := filepath.Abs(beego.AppConfig.DefaultString("log_path", conf.WorkingDir("runtime", "logs")))
+		logPath, err := filepath.Abs(beego.AppConfig.DefaultString("log_path", conf.WorkingDir("data", "logs")))
 		if err == nil {
 			conf.LogFile = logPath
 		} else {
-			conf.LogFile = conf.WorkingDir("runtime", "logs")
+			conf.LogFile = conf.WorkingDir("data", "logs")
 		}
 	}
 
@@ -354,7 +354,7 @@ func RegisterCache() {
 	beego.Info("正常初始化缓存配置.")
 	cacheProvider := beego.AppConfig.String("cache_provider")
 	if cacheProvider == "file" {
-		cacheFilePath := beego.AppConfig.DefaultString("cache_file_path", "./runtime/cache/")
+		cacheFilePath := beego.AppConfig.DefaultString("cache_file_path", "./data/cache/")
 		if strings.HasPrefix(cacheFilePath, "./") {
 			cacheFilePath = filepath.Join(conf.WorkingDirectory, string(cacheFilePath[1:]))
 		}

@@ -75,7 +75,7 @@ var (
 var (
 	ConfigurationFile = "./conf/app.conf"
 	WorkingDirectory  = "./"
-	LogFile           = "./runtime/logs"
+	LogFile           = "./data/logs"
 	BaseUrl           = ""
 	AutoLoadDelay     = 0
 )
@@ -357,7 +357,7 @@ func init() {
 	if p, err := filepath.Abs("./"); err == nil {
 		WorkingDirectory = p
 	}
-	if p, err := filepath.Abs("./runtime/logs"); err == nil {
+	if p, err := filepath.Abs("./data/logs"); err == nil {
 		LogFile = p
 	}
 }
