@@ -175,13 +175,14 @@ func initialization() {
 		if err == orm.ErrNoRows {
 			member.Account = v.Account
 			member.Avatar = conf.GetRandomAvatar()
+			member.Password = v.Password
+			member.Role = v.Role
+			member.RealName = v.RealName
+			member.AuthMethod = "local"
 
 			if len(v.Password) == 0 {
 				member.Password = "123456"
 			}
-
-			member.AuthMethod = "local"
-			member.Role = 1
 
 			if len(v.Email) == 0 {
 				member.Email = v.Account + "@amazing.com"

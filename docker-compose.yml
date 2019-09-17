@@ -10,29 +10,29 @@ services:
     container_name: amazing_wiki
 
     privileged: false
-    restart: always
+    # restart: always
     ports:
-    - 8181:8181
+        - 8181:8181
     volumes:
-    - ./conf/:/app/conf
-    - ./data/:/app/data
-    - ./static/:/app/static
-    - ./views/:/app/views
+        - ./conf/:/app/conf
+        - ./data/:/app/data
+        - ./static/:/app/static
+        - ./views/:/app/views
     environment:
-    - AMAZING_RUN_MODE=prod
-    - AMAZING_DB_ADAPTER=mysql
-    - AMAZING_DB_DATABASE=amazing_wiki
-    - AMAZING_DB_HOST=host.docker.internal
-    - AMAZING_DB_PASSWORD= 
-    - AMAZING_CACHE=true
-    - AMAZING_CACHE_PROVIDER=file
-    - AMAZING_ENABLE_EXPORT=false
-    - AMAZING_BASE_URL=
-    - AMAZING_CDN_IMG_URL=
-    - AMAZING_CDN_CSS_URL=
-    - AMAZING_CDN_JS_URL=
-  networks:
-      - loki
+        - AMAZING_RUN_MODE=prod
+        - AMAZING_DB_ADAPTER=mysql
+        - AMAZING_DB_DATABASE=amazing_wiki
+        - AMAZING_DB_HOST=host.docker.internal
+        - AMAZING_DB_PASSWORD= 
+        - AMAZING_CACHE=true
+        - AMAZING_CACHE_PROVIDER=file
+        - AMAZING_ENABLE_EXPORT=false
+        - AMAZING_BASE_URL=
+        - AMAZING_CDN_IMG_URL=
+        - AMAZING_CDN_CSS_URL=
+        - AMAZING_CDN_JS_URL=
+    networks:
+        - loki
     logging:
       driver: loki
       options:
@@ -40,7 +40,7 @@ services:
         loki-retries: "5"
         loki-batch-size: "400"
 
-  depends_on:
+    depends_on:
       - "loki"
       - "grafana"
 
@@ -73,4 +73,24 @@ services:
         loki-retries: "5"
         loki-batch-size: "400"
 
+  mysql:
+    image: mysql
+    # restart: always
+    environment:
+      MYSQL_DATABASE: 'amazing_wiki'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: ''
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data/database/:/var/lib/mysql
+    networks:
+      - loki
+    logging:
+      driver: loki
+      options:
+        loki-url: http://host.docker.internal:3100/api/prom/push
+        loki-retries: "5"
+        loki-batch-size: "400"
 

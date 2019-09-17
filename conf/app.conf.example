@@ -26,13 +26,13 @@ config_auto_delay="${AMAZING_CONFIG_AUTO_DELAY||20}"
 #默认Session生成Key的秘钥
 beegoserversessionkey=NY1B$28pms12JM&c
 sessionprovider="${AMAZING_SESSION_PROVIDER||file}"
-sessionproviderconfig="${AMAZING_SESSION_PROVIDER_CONFIG||./runtime/session}"
+sessionproviderconfig="${AMAZING_SESSION_PROVIDER_CONFIG||./data/runtime/session}"
 #默认的过期时间
 sessiongcmaxlifetime="${AMAZING_SESSION_MAX_LIFETIME||3600}"
 
 #以文件方式储存
 #sessionprovider=file
-#sessionproviderconfig=./runtime/session
+#sessionproviderconfig=./data/runtime/session
 
 #以redis方式储存
 #sessionprovider=redis
@@ -110,7 +110,7 @@ export_limit_num="${AMAZING_EXPORT_LIMIT_NUM||5}"
 export_queue_limit_num="${AMAZING_EXPORT_QUEUE_LIMIT_NUM||100}"
 
 #导出项目的缓存目录配置
-export_output_path="${AMAZING_EXPORT_OUTPUT_PATH||./runtime/cache}"
+export_output_path="${AMAZING_EXPORT_OUTPUT_PATH||./data/runtime/cache}"
 
 ################百度地图密钥#################
 baidumapkey=
@@ -159,7 +159,7 @@ cache_provider="${AMAZING_CACHE_PROVIDER||file}"
 cache_memory_interval="${AMAZING_CACHE_MEMORY_INTERVAL||120}"
 
 #当缓存方式配置为file时,缓存的储存目录
-cache_file_path="${AMAZING_CACHE_FILE_PATH||./runtime/cache/}"
+cache_file_path="${AMAZING_CACHE_FILE_PATH||./data/runtime/cache/}"
 
 #缓存文件后缀
 cache_file_suffix="${AMAZING_CACHE_FILE_SUFFIX||.bin}"
@@ -189,7 +189,7 @@ cache_redis_prefix="${AMAZING_CACHE_REDIS_PREFIX||amazing::cache}"
 #########日志储存配置##############
 
 #日志保存路径，在linux上，自动创建的日志文件请不要删除，否则将无法写入日志
-log_path="${AMAZING_LOG_PATH||./runtime/logs}"
+log_path="${AMAZING_LOG_PATH||./data/runtime/logs}"
 
 #每个文件保存的最大行数，默认值 1000000
 log_maxlines="${AMAZING_LOG_MAX_LINES||1000000}"

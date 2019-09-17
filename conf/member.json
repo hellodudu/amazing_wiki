@@ -2,11 +2,28 @@
     "member": [
         {
             "account": "wantao",
-            "password": "111111"
+            "password": "111111",
+            "real_name": "万韬",
+            "role": 1
         },
 
         {
-            "account": "dudu"
+            "account": "dudu",
+            "real_name": "万韬",
+            "role": 2
+        },
+
+        {
+            "account": "wulifeng",
+            "real_name": "吴立峰",
+            "role": 2
+        },
+        
+        {
+            "account": "guojianhan",
+            "real_name": "果剑寒",
+            "role": 2
         }
+
     ]
 }
