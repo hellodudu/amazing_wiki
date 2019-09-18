@@ -55,7 +55,7 @@ func RegisterDataBase() {
 		dataSource := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true&loc=%s", username, password, host, port, database, url.QueryEscape(timezone))
 
 		if err := orm.RegisterDataBase("default", "mysql", dataSource); err != nil {
-			beego.Error("注册默认数据库失败->", err)
+			beego.Error("注册默认数据库失败->", err, dataSource)
 			os.Exit(1)
 		}
 
@@ -279,10 +279,10 @@ func RegisterFunction() {
 
 //解析命令
 func ResolveCommand(args []string) {
-	flagSet := flag.NewFlagSet("MinDoc command: ", flag.ExitOnError)
-	flagSet.StringVar(&conf.ConfigurationFile, "config", "", "MinDoc configuration file.")
-	flagSet.StringVar(&conf.WorkingDirectory, "dir", "", "MinDoc working directory.")
-	flagSet.StringVar(&conf.LogFile, "log", "", "MinDoc log file path.")
+	flagSet := flag.NewFlagSet("Amazing Wiki command: ", flag.ExitOnError)
+	flagSet.StringVar(&conf.ConfigurationFile, "config", "", "Amazing Wiki configuration file.")
+	flagSet.StringVar(&conf.WorkingDirectory, "dir", "", "Amazing Wiki working directory.")
+	flagSet.StringVar(&conf.LogFile, "log", "", "Amazing Wiki log file path.")
 
 	if err := flagSet.Parse(args); err != nil {
 		log.Fatal("解析命令失败 ->", err)

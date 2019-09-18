@@ -9,6 +9,11 @@ build:
 docker: build
 	docker build . -t amazing_wiki:latest
 
+.PHONY: docker_clean
+docker_clean:
+	docker rm -f $(shell docker ps -a -q)
+
+
 .PHONY: push
 push: build
 	docker tag amazing_wiki hellodudu86/amazing_wiki:$(v)

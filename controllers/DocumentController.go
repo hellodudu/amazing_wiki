@@ -152,7 +152,7 @@ func (c *DocumentController) Read() {
 		}
 		data.DocTitle = doc.DocumentName
 		data.Body = doc.Release
-		data.Title = doc.DocumentName + " - Powered by MinDoc"
+		data.Title = doc.DocumentName + " - Powered by Amazing Wiki"
 		data.Version = doc.Version
 
 		c.JsonResult(0, "ok", data)

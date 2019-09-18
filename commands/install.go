@@ -46,7 +46,7 @@ func ModifyPassword() {
 
 	//账号和密码需要解析参数后才能获取
 	if len(os.Args) >= 2 && os.Args[1] == "password" {
-		flagSet := flag.NewFlagSet("MinDoc command: ", flag.ExitOnError)
+		flagSet := flag.NewFlagSet("Amazing Wiki command: ", flag.ExitOnError)
 
 		flagSet.StringVar(&account, "account", "", "用户账号.")
 		flagSet.StringVar(&password, "password", "", "用户密码.")

@@ -9,7 +9,7 @@
     <meta name="site" content="https://github.com/hellodudu/amazing_wiki" />
     <meta name="keywords" content="{{.Model.BlogTitle}}">
     <meta name="description" content="{{.Model.BlogTitle}}-{{.Description}}">
-    <title>{{.Model.BlogTitle}} - Powered by MinDoc</title>
+    <title>{{.Model.BlogTitle}} - Powered by Amazing Wiki</title>
 
     <!-- Bootstrap -->
     <link href="{{cdncss "/static/bootstrap/css/bootstrap.min.css"}}" rel="stylesheet">
