@@ -23,6 +23,372 @@
             "account": "guojianhan",
             "real_name": "果剑寒",
             "role": 2
+        },
+
+        {
+            "account": "zhuhe",
+            "real_name": "朱贺",
+            "role": 2
+        },
+
+        {
+            "account": "zhanghouqin",
+            "real_name": "张候亲",
+            "role": 1
+        },
+
+        {
+            "account": "jiangwei",
+            "real_name": "姜威",
+            "role": 1
+        },
+
+        {
+            "account": "zhanglongfei",
+            "real_name": "张龙飞",
+            "role": 2
+        },
+
+        {
+            "account": "fengwanlei",
+            "real_name": "冯万雷",
+            "role": 2
+        },
+
+        {
+            "account": "songzhenwei",
+            "real_name": "宋振威",
+            "role": 2
+        },
+
+        {
+            "account": "zhaojie",
+            "real_name": "赵杰",
+            "role": 2
+        },
+
+        {
+            "account": "zhaojunqiang",
+            "real_name": "赵军强",
+            "role": 1
+        },
+
+        {
+            "account": "cuilizhao",
+            "real_name": "崔立照",
+            "role": 2
+        },
+
+        {
+            "account": "liuyeping",
+            "real_name": "刘业平",
+            "role": 1
+        },
+
+        {
+            "account": "lilei",
+            "real_name": "李雷",
+            "role": 1
+        },
+
+        {
+            "account": "wenbin",
+            "real_name": "文斌",
+            "role": 1
+        },
+
+        {
+            "account": "hesiyao",
+            "real_name": "何思瑶",
+            "role": 2
+        },
+
+        {
+            "account": "zhanghaojuan",
+            "real_name": "张昊娟",
+            "role": 2
+        },
+
+        {
+            "account": "yangguang",
+            "real_name": "杨光",
+            "role": 1
+        },
+
+        {
+            "account": "wangyang",
+            "real_name": "王洋",
+            "role": 1
+        },
+
+        {
+            "account": "dinghui",
+            "real_name": "丁晖",
+            "role": 1
+        },
+
+        {
+            "account": "jiaohaiming",
+            "real_name": "矫海明",
+            "role": 1
+        },
+
+        {
+            "account": "guoyunhui",
+            "real_name": "郭韫慧",
+            "role": 2
+        },
+
+        {
+            "account": "tanqionglu",
+            "real_name": "谈琼璐",
+            "role": 2
+        },
+
+        {
+            "account": "xuwenxiao",
+            "real_name": "徐文孝",
+            "role": 2
+        },
+
+        {
+            "account": "zhuwei",
+            "real_name": "朱威",
+            "role": 2
+        },
+
+        {
+            "account": "hanyue",
+            "real_name": "韩悦",
+            "role": 2
+        },
+
+        {
+            "account": "liuchen",
+            "real_name": "刘晨",
+            "role": 2
+        },
+
+        {
+            "account": "shibaiyu",
+            "real_name": "时百禹",
+            "role": 2
+        },
+
+        {
+            "account": "zhangminghui",
+            "real_name": "张明辉",
+            "role": 1
+        },
+
+        {
+            "account": "zhoujin",
+            "real_name": "周进",
+            "role": 2
+        },
+
+        {
+            "account": "sunkuiwu",
+            "real_name": "孙魁武",
+            "role": 1
+        },
+
+        {
+            "account": "dingyi",
+            "real_name": "丁屹",
+            "role": 1
+        },
+
+        {
+            "account": "fengmengyun",
+            "real_name": "冯梦云",
+            "role": 2
+        },
+
+        {
+            "account": "xuehaike",
+            "real_name": "薛海科",
+            "role": 2
+        },
+
+        {
+            "account": "lizhaoqi",
+            "real_name": "李昭琦",
+            "role": 1
+        },
+
+        {
+            "account": "liujiakang",
+            "real_name": "刘佳康",
+            "role": 2
+        },
+
+        {
+            "account": "zhangjingsheng",
+            "real_name": "张竞生",
+            "role": 2
+        },
+
+        {
+            "account": "zhengbaoju",
+            "real_name": "郑宝驹",
+            "role": 2
+        },
+
+        {
+            "account": "xurui",
+            "real_name": "徐睿",
+            "role": 2
+        },
+
+        {
+            "account": "zhuhao",
+            "real_name": "朱昊",
+            "role": 1
+        },
+
+        {
+            "account": "linning",
+            "real_name": "林宁",
+            "role": 2
+        },
+
+        {
+            "account": "lijia",
+            "real_name": "李甲",
+            "role": 1
+        },
+
+        {
+            "account": "liujie",
+            "real_name": "刘桀",
+            "role": 2
+        },
+
+        {
+            "account": "liubo",
+            "real_name": "刘波",
+            "role": 1
+        },
+
+        {
+            "account": "zhangpengyue",
+            "real_name": "张朋月",
+            "role": 1
+        },
+
+        {
+            "account": "fuyuzhou",
+            "real_name": "付誉洲",
+            "role": 1
+        },
+
+        {
+            "account": "dongyue",
+            "real_name": "董跃",
+            "role": 2
+        },
+
+        {
+            "account": "fengyu",
+            "real_name": "冯雨",
+            "role": 2
+        },
+
+        {
+            "account": "lichang",
+            "real_name": "李昌",
+            "role": 2
+        },
+
+        {
+            "account": "majindou",
+            "real_name": "马金斗",
+            "role": 2
+        },
+
+        {
+            "account": "quanhouchuan",
+            "real_name": "全厚川",
+            "role": 2
+        },
+
+        {
+            "account": "zhangxiaodong",
+            "real_name": "张晓东",
+            "role": 2
+        },
+
+        {
+            "account": "litong",
+            "real_name": "李瞳",
+            "role": 2
+        },
+
+        {
+            "account": "liupengbo",
+            "real_name": "刘蓬勃",
+            "role": 2
+        },
+
+        {
+            "account": "wangxu",
+            "real_name": "王旭",
+            "role": 2
+        },
+
+        {
+            "account": "zhaofengjiao",
+            "real_name": "赵凤姣",
+            "role": 2
+        },
+
+        {
+            "account": "yangbing",
+            "real_name": "杨兵",
+            "role": 2
+        },
+
+        {
+            "account": "taoye",
+            "real_name": "陶也",
+            "role": 2
+        },
+
+        {
+            "account": "yinmenghang",
+            "real_name": "尹梦航",
+            "role": 2
+        },
+
+        {
+            "account": "xujingyan",
+            "real_name": "徐景琰",
+            "role": 2
+        },
+
+        {
+            "account": "xuyiheng",
+            "real_name": "许义恒",
+            "role": 2
+        },
+
+        {
+            "account": "gaoxingwang",
+            "real_name": "高兴旺",
+            "role": 2
+        },
+
+        {
+            "account": "wanghongguang",
+            "real_name": "王宏光",
+            "role": 2
+        },
+
+        {
+            "account": "qiaoliang",
+            "real_name": "乔梁",
+            "role": 2
         }
 
     ]

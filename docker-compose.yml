@@ -21,7 +21,7 @@ services:
         - AMAZING_DB_USERNAME=root
         - AMAZING_DB_ADAPTER=mysql
         - AMAZING_DB_DATABASE=amazing_wiki
-        - AMAZING_DB_HOST=host.docker.internal
+        - AMAZING_DB_HOST=mysql
         - AMAZING_DB_PORT=3306
         - AMAZING_DB_PASSWORD=123456 
         - AMAZING_CACHE=true
@@ -31,40 +31,60 @@ services:
         - AMAZING_CDN_IMG_URL=
         - AMAZING_CDN_CSS_URL=
         - AMAZING_CDN_JS_URL=
-    # logging:
-    #   driver: loki
-    #   options:
-    #     loki-url: http://host.docker.internal:3100/api/prom/push
-    #     loki-retries: "5"
-    #     loki-batch-size: "400"
+    logging:
+      driver: loki
+      options:
+        loki-url: http://host.docker.internal:3100/api/prom/push
+        loki-retries: "5"
+        loki-batch-size: "400"
 
-    # depends_on:
-    #   - "loki"
-    #   - "grafana"
+    depends_on:
+      - "loki"
+      - "grafana"
+      - "mysql"
 
-  # loki:
-    # image: grafana/loki
-    # container_name: loki
-    # ports:
-    #   - "3100:3100"
-    # volumes:
-    #   - ./conf/:/etc/loki
-    #   - ./data/loki/:/tmp/loki
-    # command: -config.file=/etc/loki/loki-local-config.yaml
+  loki:
+    image: grafana/loki
+    container_name: loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./conf/:/etc/loki
+      - ./data/loki/:/tmp/loki
+    command: -config.file=/etc/loki/loki-local-config.yaml
 
-  # grafana:
-    # image: grafana/grafana
-    # container_name: grafana
-    # ports:
-    #     - "3000:3000"
-    # user: "472"
-    # environment:
-    #   GF_EXPLORE_ENABLED: "true"
-    # logging:
-    #   driver: loki
-    #   options:
-    #     loki-url: http://host.docker.internal:3100/api/prom/push
-    #     loki-retries: "5"
-    #     loki-batch-size: "400"
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+        - "3000:3000"
+    user: "472"
+    environment:
+      GF_EXPLORE_ENABLED: "true"
+    logging:
+      driver: loki
+      options:
+        loki-url: http://host.docker.internal:3100/api/prom/push
+        loki-retries: "5"
+        loki-batch-size: "400"
 
-  
+  mysql:
+    image: mysql
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'amazing_wiki'
+      MYSQL_USER: 'root'
+      MYSQL_ROOT_PASSWORD: "123456"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data/database/:/var/lib/mysql
+      - ./backup/:/backup
+    logging:
+      driver: loki
+      options:
+        loki-url: http://host.docker.internal:3100/api/prom/push
+        loki-retries: "5"
+        loki-batch-size: "400"
+
