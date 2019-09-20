@@ -16,10 +16,10 @@ func (m *CommentResult) FindForDocumentToPager(doc_id, page_index, page_size int
 SELECT
   comment.* ,
   parent.* ,
-  member.account AS author,
+  members.account AS author,
   p_member.account AS reply_account
 FROM amazing_comments AS comment
-  LEFT JOIN amazing_members AS member ON comment.member_id = member.member_id
+  LEFT JOIN amazing_members AS members ON comment.member_id = members.member_id
   LEFT JOIN amazing_comments AS parent ON comment.parent_id = parent.comment_id
   LEFT JOIN amazing_members AS p_member ON p_member.member_id = parent.member_id
 

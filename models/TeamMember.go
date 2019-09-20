@@ -205,11 +205,11 @@ func (m *TeamMember) FindNotJoinMemberByAccount(teamId int, account string, limi
 	}
 	o := orm.NewOrm()
 
-	sql := `select member.member_id,member.account,team.team_member_id
-from amazing_members as member 
-  left join amazing_team_member as team on team.team_id = ? and member.member_id = team.member_id
-  where member.account like ? AND team_member_id IS NULL
-  order by member.member_id desc 
+	sql := `select members.member_id,members.account,team.team_member_id
+from amazing_members as members 
+  left join amazing_team_member as team on team.team_id = ? and members.member_id = team.member_id
+  where members.account like ? AND team_member_id IS NULL
+  order by members.member_id desc 
 limit ?;`
 
 	members := make([]*Member, 0)
