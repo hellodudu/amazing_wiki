@@ -2,15 +2,14 @@ version: "3"
 
 services:
   amazing_wiki:
-    build: ./
-    image: amazing_wiki
+    image: hellodudu86/amazing_wiki
     container_name: amazing_wiki
     # command: install
 
     privileged: false
     restart: always
     ports:
-        - 8181:8181
+        - 80:80
     volumes:
         - ./conf/:/app/conf
         - ./data/:/app/data
@@ -67,6 +66,14 @@ services:
         loki-url: http://host.docker.internal:3100/api/prom/push
         loki-retries: "5"
         loki-batch-size: "400"
+
+  loki_conn:
+    image: hellodudu86/loki_conn
+    container_name: loki_conn
+    command:
+        -url="http://loki:3100/api/prom/push"
+    depends_on:
+        - loki
 
   mysql:
     image: mysql
