@@ -4,7 +4,7 @@ services:
   amazing_wiki:
     image: hellodudu86/amazing_wiki
     container_name: amazing_wiki
-    # command: install
+    #command: install
 
     privileged: false
     restart: always
@@ -55,17 +55,39 @@ services:
   grafana:
     image: grafana/grafana
     container_name: grafana
+    volumes:
+        - ./conf/grafana/grafana.ini:/etc/grafana/grafana.ini
+        - ./data/grafana/:/var/lib/grafana/
     ports:
         - "3000:3000"
     user: "472"
     environment:
       GF_EXPLORE_ENABLED: "true"
-    logging:
-      driver: loki
-      options:
-        loki-url: http://host.docker.internal:3100/api/prom/push
-        loki-retries: "5"
-        loki-batch-size: "400"
+    #logging:
+      #driver: loki
+      #options:
+        #loki-url: http://host.docker.internal:3100/api/prom/push
+        #loki-retries: "5"
+        #loki-batch-size: "400"
+
+  promtail:
+    image: grafana/promtail
+    container_name: promtail
+    volumes:
+        - ./conf/promtail/:/etc/promtail
+        - ./var/log:/var/log
+    command:
+        -config.file=/etc/promtail/promtail-docker-config.yaml
+    ports:
+        - "9080:9080"
+
+  loki_conn:
+    image: hellodudu86/loki_conn
+    container_name: loki_conn
+    command:
+        -url="http://loki:3100/api/prom/push"
+    depends_on:
+        - loki
 
   loki_conn:
     image: hellodudu86/loki_conn
