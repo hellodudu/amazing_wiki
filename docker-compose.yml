@@ -16,6 +16,7 @@ services:
         - ./data/:/app/data
         - ./static/:/app/static
         - ./views/:/app/views
+        - ./favicon.ico:/app/favicon.ico
     environment:
         - AMAZING_RUN_MODE=dev
         - AMAZING_DB_USERNAME=root
